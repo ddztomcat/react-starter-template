@@ -50,6 +50,16 @@ module.exports = {
                 ]
             },
             {
+                test: /\.styl$/,
+                include: path.resolve(__dirname, 'src'),
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    'postcss-loader',
+                    'stylus-loader'
+                ]
+            },
+            {
                 test: /\.(png|jpg|gif)$/i,
                 use: [
                     'url-loader?limit=8192&name=[name].[ext]&outputPath=images/'
@@ -83,7 +93,7 @@ module.exports = {
         }
     },
     resolve: {
-        extensions: [".js", ".jsx", ".scss", ".css"], //后缀名自动补全
+        extensions: [".js", ".jsx", ".scss", ".css", ".styl"], //后缀名自动补全
         alias: {
             '@': path.resolve(__dirname, "src")
         }
