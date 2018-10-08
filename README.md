@@ -53,3 +53,30 @@
    # 本地mock
    $ npm run mock
 ```
+### 使用说明
+
+    个人项目的所有配置都在project-config文件
++ 雪碧图
+
+    >样式采用的全局模式
+    ```diff
+    module.exports = {
+    -   sprite: false
+    +   sprite: true
+    };
+    ```
+    ```jsx
+    import 'sprites/sprite.global'
+    ```
++ 代理设置
+    ```diff
+    module.exports = {
+    -    proxy: false
+    +    proxy: {
+    +        '/api': {
+    +       target: 'http://localhost:3000',
+    +       pathRewrite: {'^/api' : ''}
+    +       }
+    +   },
+    };
+    ```

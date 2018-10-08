@@ -17,5 +17,6 @@ module.exports = {
   //     pathRewrite: {'^/api' : ''}
   //   }
   // },
-  proxy: false
+  proxy: false,
+  sprite: false
 };

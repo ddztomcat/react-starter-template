@@ -1,9 +1,31 @@
 const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-
+const SpritesmithPlugin = require('webpack-spritesmith');
 const devMode = process.env.NODE_ENV !== 'production'
+const projectConfig = require('./project-config');
 
+let plugins = [
+    new webpack.HashedModuleIdsPlugin(),
+    new MiniCssExtractPlugin({
+        filename: devMode ? '[name].css' : '[name].[contenthash].css'
+    })
+]
+if(projectConfig.sprite) {
+    plugins.push(new SpritesmithPlugin({
+        src: {
+            cwd: path.resolve(__dirname, 'src/assets'),
+            glob: '+(*.png|*.jpg|*jpeg)'
+        },
+        target: {
+            image: path.resolve(__dirname, 'src/sprites/sprite.png'),
+            css: path.resolve(__dirname, 'src/sprites/sprite.global.css')
+        },
+        apiOptions: {
+            cssImageRef: "sprite.png"
+        }
+    }))
+}
 module.exports = {
     mode: devMode ? 'development' : 'production',
     module: {
@@ -60,19 +82,14 @@ module.exports = {
                 ]
             },
             {
-                test: /\.(png|jpg|gif)$/i,
+                test: /\.(png|jpg|jpeg|gif)$/i,
                 use: [
                     'url-loader?limit=8192&name=[name].[ext]&outputPath=images/'
                 ]
             }
         ]
     },
-    plugins: [
-        new webpack.HashedModuleIdsPlugin(),
-        new MiniCssExtractPlugin({
-            filename: devMode ? '[name].css' : '[name].[contenthash].css'
-        })
-    ],
+    plugins: plugins,
     optimization: {
         runtimeChunk: 'single',
         splitChunks: {
@@ -84,10 +101,10 @@ module.exports = {
                     priority: 10
                 },
                 // styles: {
-                //     name: 'styles',
-                //     test: /\.(sa|sc|c)ss$/,
+                //     name: 'global',
+                //     test: /\.global\.(sa|sc|c)ss$/,
                 //     chunks: 'all',
-                //     enforce: true
+                //     priority: 10
                 // }
             },
         }
@@ -95,7 +112,8 @@ module.exports = {
     resolve: {
         extensions: [".js", ".jsx", ".scss", ".css", ".styl"], //后缀名自动补全
         alias: {
-            '@': path.resolve(__dirname, "src")
+            '@': path.resolve(__dirname, "src"),
+            'sprites': path.resolve(__dirname, "src/sprites/")
         }
     }
 };
