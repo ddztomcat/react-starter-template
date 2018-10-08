@@ -10,7 +10,9 @@
 │  server.js // SSR时server端入口文件
 │
 ├─assets
-│      Group@3x.png
+│      Group.png
+│
+├─sprites // 雪碧图配置
 │
 ├─components
 │      loading.jsx
