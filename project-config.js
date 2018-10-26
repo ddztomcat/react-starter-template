@@ -18,5 +18,7 @@ module.exports = {
   //   }
   // },
   proxy: false,
-  sprite: false
+  sprite: false,
+  rem: false,
+  remUnit: 100
 };

@@ -12,7 +12,7 @@ const options = {
   hot: true,
   host: "localhost",
   open: true,
-  proxy: projectConfig.proxy,
+  proxy: projectConfig.proxy ? projectConfig.proxy : undefined,
   // 配合服务端渲染开发
   historyApiFallback: {
     disableDotRule: true
