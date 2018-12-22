@@ -16,7 +16,8 @@ const options = {
   // 配合服务端渲染开发
   historyApiFallback: {
     disableDotRule: true
-  }
+  },
+  disableHostCheck: true // 不检查host
 };
 const config = merge(configBrowser, {
   plugins: [
