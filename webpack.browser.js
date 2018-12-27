@@ -7,7 +7,7 @@ const webpack = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const path = require("path");
-const {PATHS, remUnit} = require('./project-config');
+const {PATHS, remUnit, rem} = require('./project-config');
 
 const devMode = process.env.NODE_ENV !== "production";
 
@@ -15,7 +15,8 @@ let plugs = [
   new HtmlWebpackPlugin({
     title: "react 全家桶",
     template: "src/index.html",
-    remUnit: remUnit
+    remUnit: remUnit,
+    rem
   })
 ];
 if (!devMode) {
